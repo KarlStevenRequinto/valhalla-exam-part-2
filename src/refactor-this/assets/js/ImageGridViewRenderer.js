@@ -1,6 +1,39 @@
 function ImageGridViewRenderer() { }
 
 ImageGridViewRenderer.prototype.render = function () {
+  function renderNatureImages(images) {
+    const natureView = document.getElementById("nature-images");
+    natureView.innerHTML += images.map(image => `
+      <div class="col" style="height: 400px; padding: 10px;">
+        <img class="image" src="${image.url}" alt="${image.name}" style="height: 100%; object-fit: cover; width: 100%;" />
+        <div class="middle">
+          <a class="btn btn-dark" href="${image.url}" download="${image.name}">DOWNLOAD</a>
+        </div>
+      </div>`).join('');
+  }
+
+  function renderArchitectureImages(images) {
+    const natureView = document.getElementById("architecture-images");
+    natureView.innerHTML += images.map(image => `
+      <div class="col" style="height: 400px; padding: 10px;">
+        <img class="image" src="${image.url}" alt="${image.name}" style="height: 100%; object-fit: cover; width: 100%;" />
+        <div class="middle">
+          <a class="btn btn-dark" href="${image.url}" download="${image.name}">DOWNLOAD</a>
+        </div>
+      </div>`).join('');
+  }
+
+  function renderFashionImages(images) {
+    const natureView = document.getElementById("fashion-images");
+    natureView.innerHTML += images.map(image => `
+      <div class="col" style="height: 400px; padding: 10px;">
+        <img class="image" src="${image.url}" alt="${image.name}" style="height: 100%; object-fit: cover; width: 100%;" />
+        <div class="middle">
+          <a class="btn btn-dark" href="${image.url}" download="${image.name}">DOWNLOAD</a>
+        </div>
+      </div>`).join('');
+  }
+
   var nav =
     '<nav class="navbar navbar-expand-lg navbar-light bg-light">'
     + '  <a class="navbar-brand" href="#">Photo Sharing App</a>'
@@ -29,123 +62,39 @@ ImageGridViewRenderer.prototype.render = function () {
       + '  <div id="nature-images" class="row row-cols-3"></div>'
       + '</div>';
     ImageDataGetter.getImages("nature", (page * 3) - 2)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("nature-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderNatureImages);
+
     ImageDataGetter.getImages("nature", (page * 3) - 1)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("nature-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderNatureImages);
+
     ImageDataGetter.getImages("nature", page * 3)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("nature-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderNatureImages);
   } else if (window.location.search.includes('?architecture')) {
     document.getElementById("main-view").innerHTML +=
       '<div class="container">'
       + '  <div id="architecture-images" class="row row-cols-3"></div>'
       + '</div>';
     ImageDataGetter.getImages("architecture", (page * 3) - 2)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("architecture-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderArchitectureImages);
+
     ImageDataGetter.getImages("architecture", (page * 3) - 1)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("architecture-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderArchitectureImages);
+
     ImageDataGetter.getImages("architecture", page * 3)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("architecture-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderArchitectureImages);
   } else if (window.location.search.includes('?fashion')) {
     document.getElementById("main-view").innerHTML +=
       '<div class="container">'
       + '  <div id="fashion-images" class="row row-cols-3"></div>'
       + '</div>';
     ImageDataGetter.getImages("fashion", (page * 3) - 2)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("fashion-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderFashionImages);
+
     ImageDataGetter.getImages("fashion", (page * 3) - 1)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("fashion-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderFashionImages);
+
     ImageDataGetter.getImages("fashion", page * 3)
-      .then(function (images) {
-        for (var i = 0; i < images.length; i++) {
-          document.getElementById("fashion-images").innerHTML +=
-            '<div class="col" style="height: 400px; padding: 10px;">'
-            + '  <img class="image" src="' + images[i].url + '" alt="' + images[i].name + '" style="height: 100%; object-fit: cover; width: 100%;" />'
-            + '  <div class="middle">'
-            + '    <a class="btn btn-dark" href="' + images[i].url + '" download="' + images[i].name + '">DOWNLOAD</a>'
-            + '  </div>'
-            + '</div>';
-        }
-      });
+      .then(renderFashionImages);
   }
 
   var prevsearchstr = window.location.search.split('&page')[0] + '&page=' + (page - 1);
