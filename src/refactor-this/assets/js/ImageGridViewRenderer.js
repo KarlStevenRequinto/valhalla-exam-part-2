@@ -10,14 +10,16 @@ ImageGridViewRenderer.prototype.render = function () {
       console.error(`Element with ID ${idName} not found.`);
       return;
     }
-
-    itemView.innerHTML += images.map(image => `
+  
+    const imagesHTML = images.map(image => `
       <div class="col" style="height: 400px; padding: 10px;">
         <img class="image" src="${image.url}" alt="${image.name}" style="height: 100%; object-fit: cover; width: 100%;" />
         <div class="middle">
           <a class="btn btn-dark" href="${image.url}" download="${image.name}">DOWNLOAD</a>
         </div>
       </div>`).join('');
+  
+    itemView.innerHTML += imagesHTML;
   };
 
   const renderImagesByCategory = async (category) => {
