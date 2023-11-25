@@ -3,6 +3,18 @@ function ImageGridViewRenderer() { }
 ImageGridViewRenderer.prototype.render = function () {
   const mainView = document.getElementById("main-view");
   const pageQueryParam = window.location.search.includes('page') ? Number(window.location.search.split('page=')[1]) : 1;
+  const navbarLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+  navbarLinks.forEach(function (link) {
+    link.addEventListener("click", function (event) {
+
+      navbarLinks.forEach(function (navLink) {
+        navLink.classList.remove("active");
+      });
+
+      event.target.classList.add("active");
+    });
+  });
 
   const renderImages = (images, idName) => {
     const itemView = document.getElementById(`${idName}-images`);
@@ -10,7 +22,7 @@ ImageGridViewRenderer.prototype.render = function () {
       console.error(`Element with ID ${idName} not found.`);
       return;
     }
-  
+
     const imagesHTML = images.map(image => `
       <div class="col" style="height: 400px; padding: 10px;">
         <img class="image" src="${image.url}" alt="${image.name}" style="height: 100%; object-fit: cover; width: 100%;" />
@@ -18,7 +30,7 @@ ImageGridViewRenderer.prototype.render = function () {
           <a class="btn btn-dark" href="${image.url}" download="${image.name}">DOWNLOAD</a>
         </div>
       </div>`).join('');
-  
+
     itemView.innerHTML += imagesHTML;
   };
 
