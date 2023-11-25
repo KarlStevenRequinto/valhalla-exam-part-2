@@ -3,18 +3,6 @@ function ImageGridViewRenderer() { }
 ImageGridViewRenderer.prototype.render = function () {
   const mainView = document.getElementById("main-view");
   const pageQueryParam = window.location.search.includes('page') ? Number(window.location.search.split('page=')[1]) : 1;
-  const navbarLinks = document.querySelectorAll(".navbar-nav .nav-link");
-
-  navbarLinks.forEach(function (link) {
-    link.addEventListener("click", function (event) {
-
-      navbarLinks.forEach(function (navLink) {
-        navLink.classList.remove("active");
-      });
-
-      event.target.classList.add("active");
-    });
-  });
 
   const renderImages = (images, idName) => {
     const itemView = document.getElementById(`${idName}-images`);
@@ -32,6 +20,8 @@ ImageGridViewRenderer.prototype.render = function () {
       </div>`).join('');
 
     itemView.innerHTML += imagesHTML;
+    
+    displayPagination();
   };
 
   const renderImagesByCategory = async (category) => {
@@ -62,6 +52,12 @@ ImageGridViewRenderer.prototype.render = function () {
       console.error(error);
     }
   };
+  const displayPagination = () => {
+    const paginationContainer = document.getElementById('pagination-container');
+    if (paginationContainer) {
+      paginationContainer.style.display = 'block'; // Show the pagination container
+    }
+  };
 
   if (window.location.search.includes('?nature')) {
     renderImagesByCategory("nature");
@@ -74,7 +70,7 @@ ImageGridViewRenderer.prototype.render = function () {
   const prevsearchstr = window.location.search.split('&page')[0] + '&page=' + (pageQueryParam - 1);
   const nextsearchstr = window.location.search.split('&page')[0] + '&page=' + (pageQueryParam + 1);
   const pagination = `
-    <nav>
+    <nav id="pagination-container" style="display: none;">
       <ul class="pagination">
         <li class="page-item"><a class="page-link" href="${prevsearchstr}">Previous</a></li>
         <li class="page-item"><a class="page-link" href="${nextsearchstr}">Next</a></li>
