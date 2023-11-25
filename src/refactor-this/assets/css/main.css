@@ -46,3 +46,15 @@
   align-items: center;
   z-index: 9999;
 }
+
+#pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-item {
+  margin: 0 10px;
+  text-align: center;
+  width: 100px;
+}

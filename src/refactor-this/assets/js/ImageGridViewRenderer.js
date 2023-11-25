@@ -20,7 +20,7 @@ ImageGridViewRenderer.prototype.render = function () {
       </div>`).join('');
 
     itemView.innerHTML += imagesHTML;
-    
+
     displayPagination();
   };
 
@@ -55,7 +55,7 @@ ImageGridViewRenderer.prototype.render = function () {
   const displayPagination = () => {
     const paginationContainer = document.getElementById('pagination-container');
     if (paginationContainer) {
-      paginationContainer.style.display = 'block'; // Show the pagination container
+      paginationContainer.style.display = 'flex';
     }
   };
 
@@ -72,8 +72,8 @@ ImageGridViewRenderer.prototype.render = function () {
   const pagination = `
     <nav id="pagination-container" style="display: none;">
       <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="${prevsearchstr}">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="${nextsearchstr}">Next</a></li>
+        <li class="page-item"><a class="page-link" style="border-radius: 4px;" href="${prevsearchstr}">Previous</a></li>
+        <li class="page-item"><a class="page-link" style="border-radius: 4px;" href="${nextsearchstr}">Next</a></li>
       </ul>
     </nav>`;
 
