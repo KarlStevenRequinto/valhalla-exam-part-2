@@ -58,3 +58,23 @@
   text-align: center;
   width: 100px;
 }
+
+a.page-link.disabled-btn {
+  background-color: #ddd;
+  width: 100px;
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 16px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+a.page-link.disabled-btn:hover {
+  background-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+}

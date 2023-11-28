@@ -2,7 +2,11 @@ function ImageGridViewRenderer() { }
 
 ImageGridViewRenderer.prototype.render = function () {
   const mainView = document.getElementById("main-view");
-  const pageQueryParam = window.location.search.includes('page') ? Number(window.location.search.split('page=')[1]) : 1;
+  let pageQueryParam = window.location.search.includes('page') ? Number(window.location.search.split('page=')[1]) : 1;
+  const prevsearchstr = window.location.search.split('&page')[0] + '&page=' + (pageQueryParam - 1);
+  const nextsearchstr = window.location.search.split('&page')[0] + '&page=' + (pageQueryParam + 1);
+  console.log(pageQueryParam, typeof pageQueryParam);
+  console.log(prevsearchstr, nextsearchstr);
 
   const renderImages = (images, idName) => {
     const itemView = document.getElementById(`${idName}-images`);
@@ -45,16 +49,45 @@ ImageGridViewRenderer.prototype.render = function () {
 
     try {
       const [images1, images2, images3] = await Promise.all(getImagePromises);
+      const arrLength = (await Promise.all(getImagePromises)).length;
+      console.log(arrLength);
       renderImages(images1, category);
       renderImages(images2, category);
       renderImages(images3, category);
+      displayPagination(arrLength);
+
     } catch (error) {
       console.error(error);
     }
   };
-  const displayPagination = () => {
+  const displayPagination = (arrLength) => {
     const paginationContainer = document.getElementById('pagination-container');
     if (paginationContainer) {
+      const prevPageLink = paginationContainer.querySelector('.page-item:first-child .page-link');
+      const nextPageLink = paginationContainer.querySelector('.page-item:last-child .page-link');
+
+      if (pageQueryParam === 1) {
+        prevPageLink.classList.add('disabled-btn');
+        prevPageLink.removeAttribute('href');
+        prevPageLink.addEventListener('click', function (event) {
+          event.preventDefault();
+        });
+      } else {
+        prevPageLink.classList.remove('disabled-btn');
+        prevPageLink.setAttribute('href', window.location.search.split('&page')[0] + '&page=' + (pageQueryParam - 1));
+      }
+
+      if (pageQueryParam === arrLength) {
+        nextPageLink.classList.add('disabled-btn');
+        nextPageLink.removeAttribute('href');
+        nextPageLink.addEventListener('click', function (event) {
+          event.preventDefault();
+        });
+      } else {
+        nextPageLink.classList.remove('disabled-btn');
+        nextPageLink.setAttribute('href', window.location.search.split('&page')[0] + '&page=' + (pageQueryParam + 1));
+      }
+
       paginationContainer.style.display = 'flex';
     }
   };
@@ -66,9 +99,6 @@ ImageGridViewRenderer.prototype.render = function () {
   } else if (window.location.search.includes('?fashion')) {
     renderImagesByCategory("fashion");
   }
-
-  const prevsearchstr = window.location.search.split('&page')[0] + '&page=' + (pageQueryParam - 1);
-  const nextsearchstr = window.location.search.split('&page')[0] + '&page=' + (pageQueryParam + 1);
   const pagination = `
     <nav id="pagination-container" style="display: none;">
       <ul class="pagination">
