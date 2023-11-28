@@ -5,8 +5,6 @@ ImageGridViewRenderer.prototype.render = function () {
   let pageQueryParam = window.location.search.includes('page') ? Number(window.location.search.split('page=')[1]) : 1;
   const prevsearchstr = window.location.search.split('&page')[0] + '&page=' + (pageQueryParam - 1);
   const nextsearchstr = window.location.search.split('&page')[0] + '&page=' + (pageQueryParam + 1);
-  console.log(pageQueryParam, typeof pageQueryParam);
-  console.log(prevsearchstr, nextsearchstr);
 
   const renderImages = (images, idName) => {
     const itemView = document.getElementById(`${idName}-images`);
@@ -50,7 +48,6 @@ ImageGridViewRenderer.prototype.render = function () {
     try {
       const [images1, images2, images3] = await Promise.all(getImagePromises);
       const arrLength = (await Promise.all(getImagePromises)).length;
-      console.log(arrLength);
       renderImages(images1, category);
       renderImages(images2, category);
       renderImages(images3, category);
